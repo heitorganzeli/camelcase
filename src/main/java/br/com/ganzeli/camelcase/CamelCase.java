@@ -6,7 +6,7 @@ import java.util.List;
 public class CamelCase {
 
     static List<String> converterCamelCase(String camelCaseString) {
-        return Arrays.asList(camelCaseString);
+        return Arrays.asList(camelCaseString.toLowerCase());
     }
     
 }

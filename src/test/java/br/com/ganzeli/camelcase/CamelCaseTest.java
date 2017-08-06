@@ -14,4 +14,11 @@ public class CamelCaseTest {
         List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
         assertThat(wordList, equalTo(Arrays.asList("nome")));
     }
+    
+    @Test
+    public void testSingleCaptalizedWord() {
+        String camelCaseString = "Nome";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        assertThat(wordList, equalTo(Arrays.asList("nome")));
+    }
 }
