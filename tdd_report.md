@@ -68,7 +68,77 @@ Adicionada transformação para lower case.
 
 ### Teste Adicionado
 
+```java
+@Test
+public void testComposedWord() {
+    String camelCaseString = "nomeComposto";
+    List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+
+    assertThat(wordList, equalTo(Arrays.asList("nome", "composto")));
+}
+```
+
+### Código Anterior
+
+```java
+static List<String> converterCamelCase(String camelCaseString) {
+    return Arrays.asList(camelCaseString.toLowerCase());
+}
+```
+
+### Código Novo
+
+```java
+static List<String> converterCamelCase(String camelCaseString) {
+    List<String> words = new ArrayList<>();
+
+    int wordStart=0;
+    for (int i = 0; i < camelCaseString.toCharArray().length; i++) {
+        if ((camelCaseString.toCharArray()[i] >= 'A' && 
+                camelCaseString.toCharArray()[i] <= 'Z') &&
+                i != wordStart) {
+
+            words.add(camelCaseString.substring(wordStart, i).toLowerCase());
+            wordStart = i;
+        }
+    }
+    words.add(camelCaseString.substring(wordStart, camelCaseString.length()).toLowerCase());
+    return words;
+}
+```
+
+### Descriçao
+
+Método simplificado não é mais capaz de resolver a separação de palavras.
+Foi adicionado algoritmo para a separação de palavras ao encontrar letras maiúsculas.
+
+
+## Ciclo: 4
+
+### Teste Adicionado
 
 ### Código Anterior
 
 ### Código Novo
+
+### Descriçao
+
+## Ciclo: 3
+
+### Teste Adicionado
+
+### Código Anterior
+
+### Código Novo
+
+### Descriçao
+
+## Ciclo: 3
+
+### Teste Adicionado
+
+### Código Anterior
+
+### Código Novo
+
+### Descriçao

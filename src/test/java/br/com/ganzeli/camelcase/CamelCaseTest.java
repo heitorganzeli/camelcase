@@ -21,4 +21,12 @@ public class CamelCaseTest {
         List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
         assertThat(wordList, equalTo(Arrays.asList("nome")));
     }
+    
+    @Test
+    public void testComposedWord() {
+        String camelCaseString = "nomeComposto";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        
+        assertThat(wordList, equalTo(Arrays.asList("nome", "composto")));
+    }
 }
