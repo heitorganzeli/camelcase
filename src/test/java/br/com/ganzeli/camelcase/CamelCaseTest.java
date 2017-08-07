@@ -73,7 +73,13 @@ public class CamelCaseTest {
     @Test(expected = InvalidNumberStartException.class)
     public void testInvalidNumberStart() {
         String camelCaseString = "10Primeiros";
-        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        CamelCase.converterCamelCase(camelCaseString);
+    }
+    
+    @Test(expected = InvalidSpecialCharactersException.class)
+    public void testInvalidSpecialCharacters() {
+        String camelCaseString = "nome#Composto";
+        CamelCase.converterCamelCase(camelCaseString);
     }
     
     

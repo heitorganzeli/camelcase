@@ -6,8 +6,9 @@ import java.util.regex.Pattern;
 
 public class CamelCase {
 
-    private static final Pattern acronym = Pattern.compile("[A-Z]+");
-    private static final Pattern startsWithNumber = Pattern.compile("^[0-9].*");
+    private static final Pattern ACRONYM = Pattern.compile("[A-Z]+");
+    private static final Pattern STARTS_WITH_NUMBER = Pattern.compile("^[0-9].*");
+    private static final Pattern ALLOWED_CHARS = Pattern.compile("^[0-9A-Za-zz]+$");
 
     static List<String> converterCamelCase(String camelCaseString) {
         verifyValidString(camelCaseString);
@@ -29,8 +30,12 @@ public class CamelCase {
     }
 
     private static void verifyValidString(String camelCaseString) {
-        if (startsWithNumber.matcher(camelCaseString).matches()) {
+        if (STARTS_WITH_NUMBER.matcher(camelCaseString).matches()) {
             throw new InvalidNumberStartException("não deve começar com números");
+        }
+        
+        if (!ALLOWED_CHARS.matcher(camelCaseString).matches()) {
+            throw new InvalidSpecialCharactersException("caracteres especiais não são permitidos, somente letras e números");
         }
     }
 
@@ -47,7 +52,7 @@ public class CamelCase {
     }
 
     private static String formatWord(String word) {
-        if (!acronym.matcher(word).matches()) {
+        if (!ACRONYM.matcher(word).matches()) {
             word = word.toLowerCase();
         }
         return word;
