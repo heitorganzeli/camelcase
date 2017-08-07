@@ -377,21 +377,105 @@ Novamente foram adicionados dois testes.
 Como o segundo teste possuía 3 palavras um erro no código anteior foi percebido e
 corrigido.
 
-## Ciclo: 3
+## Ciclo: 5
 
 ### Teste Adicionado
 
 ```java
+@Test
+public void testComposedWordWithNumberInTheMiddle() {
+    String camelCaseString = "recupera10Primeiros";
+    List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+
+    assertThat(wordList, equalTo(Arrays.asList("recupera", "10", "primeiros")));
+}
 ```
 
 ### Código Anterior
 
 ```java
+private static final Pattern acronym = Pattern.compile("[A-Z]+");
+
+static List<String> converterCamelCase(String camelCaseString) {
+    List<String> words = new ArrayList<>();
+
+    for (int i = 0; i < camelCaseString.toCharArray().length; i++) {
+        if (shouldBreak(camelCaseString, i)) {
+
+            words.add(formatWord(camelCaseString.substring(0, i)));
+            camelCaseString = camelCaseString.substring(i);
+            i = 0;
+        }
+    }
+
+    words.add(formatWord(camelCaseString));
+    System.out.println(String.join(", ", words));
+    return words;
+}
+
+private static boolean shouldBreak(String camelCaseString, int i) {
+    return isCapitalLetter(camelCaseString.toCharArray()[i])
+            && i != 0
+            && (!isCapitalLetter(camelCaseString.toCharArray()[i - 1])
+            || (i < camelCaseString.length() - 1
+            && !isCapitalLetter(camelCaseString.toCharArray()[i + 1])));
+}
+
+private static boolean isCapitalLetter(char c) {
+    return c >= 'A' && c <= 'Z';
+}
+
+private static String formatWord(String word) {
+    if (!acronym.matcher(word).matches()) {
+        word = word.toLowerCase();
+    }
+    return word;
+}
 ```
 
 ### Código Novo
 
 ```java
+private static final Pattern acronym = Pattern.compile("[A-Z]+");
+
+static List<String> converterCamelCase(String camelCaseString) {
+    List<String> words = new ArrayList<>();
+
+    for (int i = 0; i < camelCaseString.toCharArray().length; i++) {
+        if (shouldBreak(camelCaseString, i)) {
+
+            words.add(formatWord(camelCaseString.substring(0, i)));
+            camelCaseString = camelCaseString.substring(i);
+            i = 0;
+        }
+    }
+
+    words.add(formatWord(camelCaseString));
+    System.out.println(String.join(", ", words));
+    return words;
+}
+
+private static boolean shouldBreak(String camelCaseString, int i) {
+    return isCapitalLetterOrNumber(camelCaseString.toCharArray()[i])
+            && i != 0
+            && (!isCapitalLetterOrNumber(camelCaseString.toCharArray()[i - 1])
+            || (i < camelCaseString.length() - 1
+            && !isCapitalLetterOrNumber(camelCaseString.toCharArray()[i + 1])));
+}
+
+private static boolean isCapitalLetterOrNumber(char c) {
+    return (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+}
+
+private static String formatWord(String word) {
+    if (!acronym.matcher(word).matches()) {
+        word = word.toLowerCase();
+    }
+    return word;
+}
 ```
 
 ### Descriçao
+
+Pequena alteração para incluir números como divisores.
+

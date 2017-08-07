@@ -62,4 +62,12 @@ public class CamelCaseTest {
         assertThat(wordList, equalTo(Arrays.asList("numero", "CPF", "contribuinte")));
     }
     
+    @Test
+    public void testComposedWordWithNumberInTheMiddle() {
+        String camelCaseString = "recupera10Primeiros";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        
+        assertThat(wordList, equalTo(Arrays.asList("recupera", "10", "primeiros")));
+    }
+    
 }

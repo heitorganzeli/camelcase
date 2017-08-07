@@ -26,15 +26,15 @@ public class CamelCase {
     }
 
     private static boolean shouldBreak(String camelCaseString, int i) {
-        return isCapitalLetter(camelCaseString.toCharArray()[i])
+        return isCapitalLetterOrNumber(camelCaseString.toCharArray()[i])
                 && i != 0
-                && (!isCapitalLetter(camelCaseString.toCharArray()[i - 1])
+                && (!isCapitalLetterOrNumber(camelCaseString.toCharArray()[i - 1])
                 || (i < camelCaseString.length() - 1
-                && !isCapitalLetter(camelCaseString.toCharArray()[i + 1])));
+                && !isCapitalLetterOrNumber(camelCaseString.toCharArray()[i + 1])));
     }
 
-    private static boolean isCapitalLetter(char c) {
-        return c >= 'A' && c <= 'Z';
+    private static boolean isCapitalLetterOrNumber(char c) {
+        return (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
     }
 
     private static String formatWord(String word) {
