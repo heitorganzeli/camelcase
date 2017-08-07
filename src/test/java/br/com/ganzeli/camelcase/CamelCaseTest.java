@@ -29,4 +29,24 @@ public class CamelCaseTest {
         
         assertThat(wordList, equalTo(Arrays.asList("nome", "composto")));
     }
+    
+    @Test
+    public void testCaptalizedComposedWord() {
+        String camelCaseString = "NomeComposto";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        
+        assertThat(wordList, equalTo(Arrays.asList("nome", "composto")));
+    }
+    
+    @Test
+    public void testAcronym() {
+        String camelCaseString = "CPF";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        
+        assertThat(wordList, equalTo(Arrays.asList("CPF")));
+    }
+    
+    
+    
+    
 }
