@@ -46,7 +46,20 @@ public class CamelCaseTest {
         assertThat(wordList, equalTo(Arrays.asList("CPF")));
     }
     
+    @Test
+    public void testComposedWordWithAcronym() {
+        String camelCaseString = "numeroCPF";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        
+        assertThat(wordList, equalTo(Arrays.asList("numero", "CPF")));
+    }
     
-    
+    @Test
+    public void testComposedWordWithAcronymInTheMiddle() {
+        String camelCaseString = "numeroCPFContribuinte";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+        
+        assertThat(wordList, equalTo(Arrays.asList("numero", "CPF", "contribuinte")));
+    }
     
 }

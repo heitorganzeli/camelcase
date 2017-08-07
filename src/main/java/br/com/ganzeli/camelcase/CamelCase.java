@@ -16,17 +16,21 @@ public class CamelCase {
 
                 words.add(formatWord(camelCaseString.substring(0, i)));
                 camelCaseString = camelCaseString.substring(i);
+                i = 0;
             }
         }
 
         words.add(formatWord(camelCaseString));
+        System.out.println(String.join(", ", words));
         return words;
     }
 
     private static boolean shouldBreak(String camelCaseString, int i) {
         return isCapitalLetter(camelCaseString.toCharArray()[i])
                 && i != 0
-                && !isCapitalLetter(camelCaseString.toCharArray()[i - 1]);
+                && (!isCapitalLetter(camelCaseString.toCharArray()[i - 1])
+                || (i < camelCaseString.length() - 1
+                && !isCapitalLetter(camelCaseString.toCharArray()[i + 1])));
     }
 
     private static boolean isCapitalLetter(char c) {
