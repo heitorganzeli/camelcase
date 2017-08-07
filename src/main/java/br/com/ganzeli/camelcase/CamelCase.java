@@ -7,8 +7,11 @@ import java.util.regex.Pattern;
 public class CamelCase {
 
     private static final Pattern acronym = Pattern.compile("[A-Z]+");
+    private static final Pattern startsWithNumber = Pattern.compile("^[0-9].*");
 
     static List<String> converterCamelCase(String camelCaseString) {
+        verifyValidString(camelCaseString);
+
         List<String> words = new ArrayList<>();
 
         for (int i = 0; i < camelCaseString.toCharArray().length; i++) {
@@ -23,6 +26,12 @@ public class CamelCase {
         words.add(formatWord(camelCaseString));
         System.out.println(String.join(", ", words));
         return words;
+    }
+
+    private static void verifyValidString(String camelCaseString) {
+        if (startsWithNumber.matcher(camelCaseString).matches()) {
+            throw new InvalidNumberStartException("não deve começar com números");
+        }
     }
 
     private static boolean shouldBreak(String camelCaseString, int i) {

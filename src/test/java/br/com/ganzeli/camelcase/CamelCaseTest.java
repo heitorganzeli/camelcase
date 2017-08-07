@@ -70,4 +70,11 @@ public class CamelCaseTest {
         assertThat(wordList, equalTo(Arrays.asList("recupera", "10", "primeiros")));
     }
     
+    @Test(expected = InvalidNumberStartException.class)
+    public void testInvalidNumberStart() {
+        String camelCaseString = "10Primeiros";
+        List<String> wordList = CamelCase.converterCamelCase(camelCaseString);
+    }
+    
+    
 }
